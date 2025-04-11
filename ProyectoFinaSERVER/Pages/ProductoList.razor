@@ -1,0 +1,39 @@
+﻿@page "/productos"
+@inject ApplicationDbContext _context
+@using ProyectoFinaSERVER.Data  
+
+<h3>Lista de Productos</h3>
+
+<a href="/crearproducto">➕ Agregar producto</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var producto in productos)
+        {
+            <tr>
+                <td>@producto.Nombre</td>
+                <td>@producto.Precio</td>
+                <td>
+                    <a href="/editarproducto/@producto.Id">✏️ Editar</a> |
+                    <a href="/eliminarproducto/@producto.Id">🗑️ Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Producto> productos = new();
+
+    protected override void OnInitialized()
+    {
+        productos = _context.Productos.ToList();
+    }
+}

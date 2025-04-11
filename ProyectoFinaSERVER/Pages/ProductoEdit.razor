@@ -1,0 +1,29 @@
+﻿@page "/editarproducto/{id:int}"
+@inject ApplicationDbContext _context
+@inject NavigationManager nav
+@using ProyectoFinaSERVER.Data  <!-- Cambié el nombre del espacio de nombres -->
+
+<h3>Editar Producto</h3>
+
+<EditForm Model="@producto" OnValidSubmit="Actualizar">
+    <InputText @bind-Value="producto.Nombre" class="form-control" />
+    <InputNumber @bind-Value="producto.Precio" class="form-control" />
+    <button type="submit" class="btn btn-success">Actualizar</button>
+</EditForm>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Producto producto = new();
+
+    protected override void OnInitialized()
+    {
+        producto = _context.Productos.Find(id);
+    }
+
+    void Actualizar()
+    {
+        _context.Productos.Update(producto);
+        _context.SaveChanges();
+        nav.NavigateTo("/productos");
+    }
+}

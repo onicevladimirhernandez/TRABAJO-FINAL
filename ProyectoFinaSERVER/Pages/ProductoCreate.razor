@@ -1,0 +1,34 @@
+﻿@page "/crearproducto"   
+@inject NavigationManager nav
+@inject ApplicationDbContext _context
+@using ProyectoFinaSERVER.Data
+
+<h3>Agregar Producto</h3>
+
+<EditForm Model="@producto" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="nombre">Nombre:</label>
+        <InputText id="nombre" @bind-Value="producto.Nombre" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label for="precio">Precio:</label>
+        <InputNumber id="precio" @bind-Value="producto.Precio" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</EditForm>
+
+@code {
+    Producto producto = new Producto();
+
+    void Guardar()
+    {
+        _context.Productos.Add(producto);
+        _context.SaveChanges();
+        nav.NavigateTo("/productos");
+    }
+}

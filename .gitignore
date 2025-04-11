@@ -1,0 +1,4 @@
+# Ignorar archivos y carpetas temporales
+.vs/
+bin/
+obj/
