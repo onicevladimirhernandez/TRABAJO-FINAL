@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProyectoFinaSERVER.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace ProyectoFinaSERVER.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
 
-        public DbSet<Producto> Productos { get; set; }  
+        public DbSet<Producto> Productos { get; set; }
     }
 }
